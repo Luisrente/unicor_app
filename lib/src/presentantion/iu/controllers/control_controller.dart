@@ -20,6 +20,8 @@ class ControlController extends GetxController{
 
 final ControlRepositoryInterface controlRepositoryInterface;
 final LocalRepositoryInterface localRepositoryInterface;
+
+
  final SharedController _sharedController =
       SharedController.initializeController();
 
@@ -38,7 +40,8 @@ ControlController( {
   required this.localRepositoryInterface,
     required this.controlRepositoryInterface
   });
-//  Rx<User> user= User.empty().obs;
+ Rx<User> userSearch= User.empty().obs;
+ Rx<User> userCurrent= User.empty().obs;
  var controlState = ControlState.initial.obs;
 
 // @override
@@ -50,22 +53,35 @@ ControlController( {
 void loadUser() async{
   final currentUser = await localRepositoryInterface.getUser();
   log( '$currentUser');
-    // user(currentUser);
+   userCurrent(currentUser);
 }
  
-  Future<User?> validation(String id  ) async { 
-        controlState(ControlState.loading);
-  
+
+ 
+  Future<bool> validation(String id  ) async { 
+     controlState(ControlState.loading);
     try {
-      final controlResponse= await controlRepositoryInterface.searchUser(id);
-      // user(controlResponse);
+      final controlResponse= await controlRepositoryInterface.searchUser(id.toString());
+       userSearch(controlResponse);
       controlState(ControlState.initial);
-      return controlResponse;
+      return true;
     } catch (e) {
       controlState(ControlState.initial);
-
+      return false;
     }
-
+  }
+ 
+  Future<bool> validationQr(String id  ) async { 
+     controlState(ControlState.loading);
+    try {
+      final controlResponse= await controlRepositoryInterface.searchUser(id.toString());
+       userSearch(controlResponse);
+      controlState(ControlState.initial);
+      return true;
+    } catch (e) {
+      controlState(ControlState.initial);
+      return false;
+    }
   }
 
 }

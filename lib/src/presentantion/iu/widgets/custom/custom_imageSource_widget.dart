@@ -41,7 +41,8 @@ class CustomImageSourceWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "l10n.photographicRecord",
+            "Por favor seleciona una foto",
+            // l10n.photographicRecord,
             style: TextStyle(
                 fontSize: 12.0, fontFamily: 'Arial', color: Colors.grey[600]!),
           ),
@@ -71,11 +72,13 @@ class CustomImageSourceWidget extends StatelessWidget {
                     child: _imageSourceController
                             .getSourcePath(key.toString())
                             .isEmpty
-                        ? Icon(
-                            Icons.cloud_upload_rounded,
-                            size: 70.0,
-                            color: Colors.grey[600],
-                          )
+                        ? Container(
+                          child: Icon(
+                              Icons.cloud_upload_rounded,
+                              size: 70.0,
+                              color: Colors.grey[600],
+                            ),
+                        )
                         : Container(),
                   ),
             // Shared preferences component
@@ -85,7 +88,7 @@ class CustomImageSourceWidget extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   margin: const EdgeInsets.only(right: 10.0),
-                  label: "l10n.takePhoto",
+                  label: "Tomar",
                   customBorder:
                       const BorderSide(color: Colors.black, width: 1.5),
                   backgroundColor: Colors.white,
@@ -98,7 +101,7 @@ class CustomImageSourceWidget extends StatelessWidget {
               ),
               Expanded(
                   child: CustomButton(
-                label: "l10n.upPhoto",
+                label: "Subir",
                 margin: const EdgeInsets.only(left: 10.0),
                 customBorder: const BorderSide(color: Colors.black, width: 1.5),
                 labelStyle: const TextStyle(

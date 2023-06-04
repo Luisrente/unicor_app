@@ -15,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../context/export_context.dart';
 import '../../../router/router.dart';
+import '../../../utils/encryption_utils.dart';
 import '../../../utils/show_alert.dart';
 import '../../controllers/control_controller.dart';
 import '../../widgets/export_widget.dart';
@@ -27,17 +28,18 @@ class AdminScreen extends GetWidget<ControlController> {
 
 
    void search( BuildContext context, String id ) async {
-    try {    
-      log('${id}-----o---');
-    final result  = await controller.validation(id);
-    if(result != null){
-      Get.toNamed(Routes.adminDetails ,arguments: result );
+    try {  
+
+    final result  = await controller.validationQr(id);
+
+    if(result ){
+      Get.toNamed(Routes.adminDetails);
     }else{
         return  QuickAlert.show(
    context: context,
    type: QuickAlertType.error,
    title: 'Error...',
-   text: 'Hay algun error',
+   text: 'El documento no está registrado o presenta un error. Verifica los detalles o contacta al administrador.',
   );
     }  
     } catch (e) {
@@ -45,10 +47,12 @@ class AdminScreen extends GetWidget<ControlController> {
    context: context,
    type: QuickAlertType.error,
    title: 'Error...',
-   text: 'Hay algun error',
+   text: 'El documento no está registrado o presenta un error. Verifica los detalles o contacta al administrador.',
   );
     }
    }
+
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -67,17 +71,9 @@ class AdminScreen extends GetWidget<ControlController> {
           },
         )  
         ),
-      //  drawer: Obx(             
-      //           () {
-      //             final user = controller.user.value;
-      //             return AppDrawer(user: user);
-      //          }          
-      //          ),
-      backgroundColor: AppAssets.primaryColor,
-
+       drawer: Obx(() => AppDrawer(user: controller.userCurrent.value)),
       body: Stack(
         children: [
-
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
@@ -108,6 +104,7 @@ class AdminScreen extends GetWidget<ControlController> {
                     ),
 
                     const SizedBox(height: 30),
+
                      SearchBar(
                               margin: const EdgeInsets.symmetric(
                               horizontal: 10.0, vertical: 20.0),
@@ -115,15 +112,14 @@ class AdminScreen extends GetWidget<ControlController> {
                               labelTextField: 'Buscar',
                               onSearch: (v) {
                                 search(context, v);
-
-                              
-
                               },
                      ),
                       
                     ],
                   ),
                 ),
+
+                
                  Positioned.fill(
                 child:Obx((){
                   if (controller.controlState.value == ControlState.loading){
@@ -139,41 +135,54 @@ class AdminScreen extends GetWidget<ControlController> {
                 }
                 ) 
               )
+
         ],
       ),
             floatingActionButton:  FloatingActionButton(
               backgroundColor:AppAssets.primaryColor,              
-              onPressed: ()  async {
+              onPressed:()=> destroy('https://3.85.53.75:3000/gnjngnjgjn/eieieieieiieieieieiie') ,
+              child: Icon(Icons.qr_code),)
+    );
+  }
 
-        var status = await Permission.camera.status;
-      
+
+
+  void snar(BuildContext context) async{
+    var status = await Permission.camera.status;
         String barcodeScanRes;
+
         try {
           barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
               '#ff6666', 'Cancel', false, ScanMode.QR);
 
-              log('999i9oio-----${barcodeScanRes}');
-          if( barcodeScanRes == -1 || barcodeScanRes.length > 15){
-            log("krkrkrkrk");
-           return  QuickAlert.show(
-   context: context,
-   type: QuickAlertType.error,
-   title: 'Oops...',
-   text: 'Sorry, something went wrong',
-  );
+        String id= barcodeScanRes.replaceFirst(AppAssets.qrURL, '');
+        search(context,barcodeScanRes );
 
-          }else{
-            search(context,barcodeScanRes );
-          }
+
         } catch(ex){
           // log(ex.toString());
           barcodeScanRes = '';
         }
-        // onQRReaded(barcodeScanRes);
-                
-              },
-              child: Icon(Icons.qr_code),)
-    );
-  }
-}
 
+  }
+
+  String destroy(String qr){
+    String id= '1193565289/${DateTime.now()}';
+    String input = "1193565289/2023-06-04 10:23:35.615947";
+String output = id.replaceAll(' ', '/');
+
+
+    String  laes = EncryptionUtils.encryptString(output) ;
+
+    
+
+       return '';
+
+
+
+
+  }
+
+
+  
+}

@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-
 import '../../../context/export_context.dart';
 import '../../../router/router.dart';
 import '../../../utils/show_alert.dart';
@@ -26,7 +25,7 @@ class LoginScreen extends StatelessWidget  {
 
   final SharedController _sharedController = SharedController.initializeController();
   final AuthController controller = AuthController.initializeController();
- final LanguegeCrontroller _languageController = LanguegeCrontroller.initializeController();
+//  final LanguegeCrontroller _languageController = LanguegeCrontroller.initializeController();
 
 
    LoginScreen({super.key});
@@ -43,12 +42,12 @@ class LoginScreen extends StatelessWidget  {
    }
 
 
-  saveStatusLanguage(String locale) async {
-    SharedPreferences prefers = await SharedPreferences.getInstance();
-    await prefers.setString('locale', locale);
-    _languageController.status.value = locale;
-  }
-     AppLanguage l10n = AppLanguage();
+  // saveStatusLanguage(String locale) async {
+  //   SharedPreferences prefers = await SharedPreferences.getInstance();
+  //   await prefers.setString('locale', locale);
+  //   _languageController.status.value = locale;
+  // }
+  //    AppLanguage l10n = AppLanguage();
 
 
   @override
@@ -89,11 +88,11 @@ class LoginScreen extends StatelessWidget  {
                   margin: const EdgeInsets.all( 20.0),
                   constraints: const BoxConstraints(maxWidth: 300.0),
                   onChangedFunction: (value) {
-              //     String? error = validateEmail(value);
-              //    _sharedController.setErrorMessage("email", '');
-              //    if(error==null){
-              //     controller.corre.value=value;      
-              // }
+                  String? error = validateEmail(value);
+                 _sharedController.setErrorMessage("email", '');
+                 if(error==null){
+                  controller.corre.value=value;      
+              }
             },
             onSubmittedFunction: (value){
               String? error = validateEmail(value);
@@ -155,48 +154,48 @@ class LoginScreen extends StatelessWidget  {
                 onPressed: (() => login(context)),
                 ),
                 
-            ObxValue(
-              (p0) {
-            print(p0);
-            return CustomSeleectLanguage(
-              value: l10n.locale,
-              childrens: [
-                DropdownMenuItem(
-                  value: 'en',
-                  child: Row(
-                    children: [
-                      const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Image(image: AssetImage('assets/ingles.png'))),
-                      Text(
-                        l10n.languageEnglish,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                DropdownMenuItem(
-                  value: 'es',
-                  child: Row(
-                    children: [
-                      const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child:
-                              Image(image: AssetImage('assets/español.png'))),
-                      Text(
-                        "l10n.languageSpanish",
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-              onChangedF: (newValue) {
-                saveStatusLanguage(newValue);
-              },
+          //   ObxValue(
+          //     (p0) {
+          //   print(p0);
+          //   return CustomSeleectLanguage(
+          //     value: l10n.locale,
+          //     childrens: [
+          //       DropdownMenuItem(
+          //         value: 'en',
+          //         child: Row(
+          //           children: [
+          //             const Padding(
+          //                 padding: EdgeInsets.only(right: 10),
+          //                 child: Image(image: AssetImage('assets/ingles.png'))),
+          //             Text(
+          //               l10n.languageEnglish,
+          //               style: const TextStyle(color: Colors.grey),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //       DropdownMenuItem(
+          //         value: 'es',
+          //         child: Row(
+          //           children: [
+          //             const Padding(
+          //                 padding: EdgeInsets.only(right: 10),
+          //                 child:
+          //                     Image(image: AssetImage('assets/español.png'))),
+          //             Text(
+          //               "l10n.languageSpanish",
+          //               style: const TextStyle(color: Colors.grey),
+          //             ),
+          //           ],
+          //         ),
+          //       )
+          //     ],
+          //     onChangedF: (newValue) {
+          //       saveStatusLanguage(newValue);
+          //     },
 
-            );
-          }, _languageController.status),
+          //   );
+          // }, _languageController.status),
                         ],
                       ),
                     ),

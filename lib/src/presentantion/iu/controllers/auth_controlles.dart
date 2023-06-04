@@ -43,7 +43,7 @@ final AuthRepositoryInterface authRepositoryInterface;
  Rx<User> newuser= User().obs;
  RxString path = ''.obs;
 
-   final enamilTextController = TextEditingController();
+final emailTextController = TextEditingController();
 
 
  var loginState = LoginState.initial.obs;
@@ -52,24 +52,25 @@ final AuthRepositoryInterface authRepositoryInterface;
  RxString password = ''.obs;
 
 
- @override
- void onReady(){
-  // super.onReady();
-  //  loadUser();
-}
+ RxString password1 = ''.obs;
+ RxString password2 = ''.obs;
+
+
+
+
 
 Future<User?> loadUser() async{
   final currentUser = await localRepositoryInterface.getUser();
   user(currentUser);
+  return currentUser;
 }
 
 Future<bool> changePassword() async{
     try {
     loginState(LoginState.loading);
     final usuario = await localRepositoryInterface.getUser();
-    final loginResponse = await authRepositoryInterface.changePass(usuario.uid! , 'pass1.toString()');
-    log('${loginResponse.usuario}------dhhdhdh-------jdj');
-    await localRepositoryInterface.saveUser(loginResponse.usuario!);
+    final loginResponse = await authRepositoryInterface.changePass(usuario.uid! , password1.toString());
+    await localRepositoryInterface.saveUser(usuario);
     return true;
     } on AuthException catch(_)  {
       loginState(LoginState.initial);
@@ -90,6 +91,7 @@ Future<bool> verifyCodepas(String code ) async{
     }
   }
 
+
 Future<bool> login() async{
     try {
     final loginResponse = await authRepositoryInterface.login(LoginRequest( corre.toString() , password.toString()));
@@ -98,39 +100,38 @@ Future<bool> login() async{
     loadUser();
     return true;
     } on AuthException catch(_)  {
-      // loginState(LoginState.initial);
+    loginState(LoginState.initial);
       return false;
     }
   }
 
-Future logout() async{
-
+Future<void> logout() async{
   await localRepositoryInterface.clearAllData();
   Get.offAllNamed(Routes.login);
-
-
-
 }
 
 void routerRol() async{
       final usuario = await localRepositoryInterface.getUser();
-      try {
+      try { 
       if (usuario.verifi=='false'){
       Get.offAllNamed(Routes.verifyCode , arguments: usuario );
       }else{
-      if (usuario.rol == 'ADMIN_ROLE' && usuario.verifi == 'true')
+
+      if (usuario.rol == 'ADMIN_ROLE')
       Get.offAllNamed(Routes.admin);
 
-      if(usuario.rol == 'USER_ROLE' && usuario.verifi == 'verified')
-      Get.offAllNamed(Routes.onBoarding , arguments: usuario);
+      if(usuario.rol == 'USER_ROLE')
+      Get.offAllNamed(Routes.home , arguments: usuario);
       }
+
       } catch (e) {
       Get.offAllNamed(Routes.login );
       }
 }
 
+
+
   Future<bool> sendPassword() async{
-    final email= enamilTextController.text;
     try {
     loginState(LoginState.loading);
     final loginResponse = await authRepositoryInterface.send(corre.toString());

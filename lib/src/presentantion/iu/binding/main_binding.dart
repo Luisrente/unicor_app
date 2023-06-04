@@ -11,6 +11,9 @@ class MainBinding extends Bindings {
     // TODO: implement dependencies
     Get.lazyPut<AuthRepositoryInterface>(() => AuthRepocitoryInterfaceImpl());
     Get.lazyPut<LocalRepositoryInterface>(() => LocalRepositoryImpl());
+    Get.lazyPut<ControlRepositoryInterface>(() => ControlRepositoryImpl());
+
+    
     // Get.lazyPut<ApiRepositoryInterface>(() => ApiRepositoryImpl());
     // Get.lazyPut<ControlRepositoryInterface>(() => ControlRepositoryImpl());
     // Get.lazyPut<UserRepositoryInterface>(() => UserRepositoryInterfaceImpl());

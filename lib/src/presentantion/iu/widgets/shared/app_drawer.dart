@@ -56,45 +56,13 @@ class AppDrawer extends StatelessWidget {
           Column(
             children: [
 
-              // ListTile(
-              //   title: Text(
-              //     "Menu",
-              //     style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 20.0,
-              //         color: AppAssets.blackColor),
-              //   ),
-              //   trailing: IconButton(
-              //       onPressed: () => Get.back(),
-              //       icon: Icon(
-              //         Icons.close,
-              //         color: AppAssets.blackColor,
-              //       )),
-              // ),
-              // Divider(
-              //   thickness: 1,
-              //   color: AppAssets.blackColor,
-              // ),
-              // if (_sessionController.isClientUser())
-
-
-                  //  Container(
-                  //   color: AppAssets.primaryColor,
-                  //    child: Padding(
-                  //         padding: const EdgeInsets.only(
-                  //             right: 25, left: 25, top: 30, bottom: 20),
-                  //         child: Image.asset('assets/logo_background.png',
-                  //             alignment: Alignment.center),
-                  //       ),
-                  //  ),
-
-
-
                buildTileA(Icons.help, "Ayuda"),
 
-              if (user.rol == "USER_ROLE")
+            
                buildTile(Icons.more, "Mi cuenta ",
-                    () => Get.offNamed(Routes.login)),
+                    () => Get.offNamed(Routes.account)),
+
+
             ],
           ),
           CustomButton(
@@ -146,6 +114,7 @@ class AppDrawer extends StatelessWidget {
       onTap: (){},
     );
   }
+
 
     Widget buildAccountDetail(Size size , User user ) {
     String userPhotoUrl = "";

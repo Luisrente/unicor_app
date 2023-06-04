@@ -14,17 +14,21 @@ class Routes{
   static const String notification = '/notification';
   static const String onBoarding = '/onboarding';
   static const String schedule = '/schedule';
-  static const String uploadPhoto = '/upload';
   static const String admin = '/admin';
   static const String adminDetails = '/adminDetails';
 
   static const String verifyCode = '/verifyCode';
 
+  static const String uploadPhoto = '/upload';
+  static const String uploadProfile = '/uploadProfile';
+
+
+
+  static const String account = '/account';
 
   //PASSWORD
   static const String checkCodeEmailPassword = '/checkCodeEmailPassword';
-  static const String checkEmailView = '/checkEmailView';
-  static const String createNewPasswordView = '/createNewPasswordView';
+  static const String newPassword = '/newPassword';
   static const String sendInstructionsView = '/sendInstructionsView';
 
 }
@@ -33,25 +37,25 @@ class Routes{
 class Pages{
 
 static final pages = [
-    GetPage(name: Routes.home, page: (() =>   HomeScreens()),bindings: [AuthBinding(),MainBinding()]),
-    GetPage(name: Routes.login, page: (() =>   LoginScreen()),bindings: [AuthBinding(),MainBinding()] ),
+    GetPage(name: Routes.home, page: (() =>   HomeScreens()),bindings: [MainBinding(),AuthBinding(),AccountBinding()]),
+    GetPage(name: Routes.account, page: (() =>   AccountScreen()),bindings: [MainBinding(),AuthBinding(),AccountBinding()]),
+    GetPage(name: Routes.login, page: (() =>   LoginScreen()),bindings: [MainBinding(),AuthBinding(),AccountBinding()]),
     GetPage(name: Routes.help, page: (() =>  const  HelpScreen())),
     GetPage(name: Routes.card, page: (() =>    CardScreen())),
     GetPage(name: Routes.notification, page: (() =>  const  NotificationScreen())),
     GetPage(name: Routes.splash, page: (() =>  const  SplashScreen()),binding: SplashBinding()),
     GetPage(name: Routes.onBoarding, page: (() =>  OnBoardingScreen())),
     GetPage(name: Routes.schedule, page: (() =>  ScheduleScreen())),
-    GetPage(name: Routes.uploadPhoto, page: (() =>  UploadPhotoScreen())),
-
-    GetPage(name: Routes.admin, page: (() =>   AdminScreen())),
+    
+    GetPage(name: Routes.admin, page: (() =>   AdminScreen()),bindings: [MainBinding(),ControlBinding()]),
     GetPage(name: Routes.adminDetails, page: (() => AdminDetails())),
 
 
+    GetPage(name: Routes.uploadPhoto, page: (() =>  UploadPhotoDocScreen())),
     //PASSWORD
-    GetPage(name: Routes.adminDetails, page: (() => CheckCodeEmailPassword())),
-    GetPage(name: Routes.adminDetails, page: (() => CheckEmailView())),
-    GetPage(name: Routes.adminDetails, page: (() => CreateNewPasswordView())),
-    GetPage(name: Routes.sendInstructionsView, page: (() => SendInstructionsView())),
+    GetPage(name: Routes.checkCodeEmailPassword, page: (() => CheckCodeEmailPassword())),
+    GetPage(name: Routes.newPassword, page: (() => NewPasswordScreen())),
+    GetPage(name: Routes.sendInstructionsView, page: (() => SendInstructionsView()), bindings: [AuthBinding(),MainBinding()]),
 
 
     

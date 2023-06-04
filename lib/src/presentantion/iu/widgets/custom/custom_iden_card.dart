@@ -42,7 +42,6 @@ class CustomIndenCard extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.69,
                   height: MediaQuery.of(context).size.height * 0.70,
                   constraints: const BoxConstraints(maxHeight: 560, maxWidth: 300, minHeight:400),
-
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,7 +95,7 @@ class CustomIndenCard extends StatelessWidget {
                                     ),
                                   ),
 
-                                  _CodigoQR(documento: user.cedula!),
+                                  _CodigoQR(documento: user.cedula!, url: AppAssets.qrURL),
                       
                                 ])
                                 
@@ -115,19 +114,7 @@ class CustomIndenCard extends StatelessWidget {
                                     ),
 
 
-                      // const Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                        // child:
-                        //  Text(
-                        //               'CC:${user.documento}',
-                        //               style: const TextStyle(
-                        //                   fontSize: 20,
-                        //                   fontWeight: FontWeight.bold,
-                        //                   color: Colors.black),
-                        //               maxLines: 1,
-                        //               overflow: TextOverflow.ellipsis,
-                        //             ),
-
+                    
                          Center(
                             child:  Column(
                               children: [
@@ -167,11 +154,11 @@ class CustomIndenCard extends StatelessWidget {
 }
 
 class _Encabezado extends StatelessWidget {
-  // final Usuario usuario;
+  final User usuario;
 
   const _Encabezado({
     Key? key,
-    // required this.usuario,
+    required this.usuario,
   }) : super(key: key);
 
   @override
@@ -183,9 +170,8 @@ class _Encabezado extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'usuario.name!',
-                style: TextStyle(
+              Text('${usuario.nombre1}',
+                style: const  TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
@@ -193,9 +179,8 @@ class _Encabezado extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 5),
-              Text(
-                'CC: ' + 'usuario.document!',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+              Text(' CC: ${usuario.cedula!}',
+                style: const  TextStyle(fontSize: 18, color: Colors.black),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -207,10 +192,12 @@ class _Encabezado extends StatelessWidget {
 
 class _CodigoQR extends StatefulWidget {
   final String documento;
+  final String url;
 
   const _CodigoQR({
     Key? key,
     required this.documento,
+    required this.url,
   }) : super(key: key);
 
   @override
@@ -218,17 +205,27 @@ class _CodigoQR extends StatefulWidget {
 }
 
 class _CodigoQRState extends State<_CodigoQR> {
-  late Timer _timer; // El temporizador
-  String  qr = EncryptionUtils.encryptString('documento' + " "+'${DateTime.now()}','1a3f8c7e9b2d6f54e0a1b3c5d7e9f0a1') ;
+  late Timer timer;
+  late String qr;
+
+   // El temporizador
+
    @override
   void initState() {
     super.initState();
     // Iniciar el temporizador al cargar el widget
-    _timer = Timer.periodic(Duration(seconds: 20), (timer) {
-      setState(() {
-        // Actualizar el contador
-        qr = EncryptionUtils.encryptString(widget.documento + " "+'${DateTime.now()}','1a3f8c7e9b2d6f54e0a1b3c5d7e9f0a1')  ;
-      });
+   String  encryption = EncryptionUtils.encryptString('${widget.documento}${DateTime.now()}') ;
+       setState(() {
+      qr =  '${widget.url}/$encryption';
+    });
+
+    timer = Timer.periodic( const Duration(seconds: 120), (timer) {
+        if (mounted) {
+    setState(() {
+      encryption = EncryptionUtils.encryptString('${widget.documento}${DateTime.now()}');
+      qr =  '${widget.url}/$encryption';
+    });
+   }
     });
   }
   @override
@@ -236,7 +233,7 @@ class _CodigoQRState extends State<_CodigoQR> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: 200,
         width: 200,
         child: QrImage(data: qr ));
@@ -260,7 +257,7 @@ class _Foto extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Center(
-        child: Container(
+        child: SizedBox(
             height: 200,
             width: 200,
             child: CustomProductImage(url: foto)),
@@ -294,8 +291,8 @@ class Cargo extends StatelessWidget {
             child: RotatedBox(
               quarterTurns: 3,
               child: Text(
-                '$dato',
-                style: TextStyle(
+                dato,
+                style: const TextStyle(
                     fontSize: 30,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),

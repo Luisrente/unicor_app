@@ -30,7 +30,6 @@ class SplashController extends GetxController{
 
   void validateSession() async {
     final token = await localRepositoryInterface.getToken();
-
     if( token != null){
       final usuario = await localRepositoryInterface.getUser();
       final user = await authRepositoryInterface.getUserFromToken(usuario.uid!);
@@ -48,6 +47,9 @@ class SplashController extends GetxController{
       }else{
       if(usuario.rol == 'USER_ROLE' && usuario.estado == true)
       Get.offAllNamed(Routes.home , arguments: usuario);
+
+      if(usuario.rol == 'ADMIN_ROLE')
+      Get.offAllNamed(Routes.admin);
 
       
       if (usuario.rol == "")

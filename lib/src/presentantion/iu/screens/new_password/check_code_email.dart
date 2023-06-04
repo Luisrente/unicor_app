@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:pinput/pinput.dart';
+import 'package:pinput/pinput.dart';
 
 
 import '../../../context/export_context.dart';
@@ -21,7 +21,7 @@ class CheckCodeEmailPassword extends StatelessWidget {
 
     final result  = await controller.verifyCodepas( code);
     if(result){
-     Get.toNamed(Routes.createNewPasswordView);
+     Get.toNamed(Routes.newPassword);
     }else{
      return mostrarAlerta(context, 'Error ',
     'Error en los datos');
@@ -34,26 +34,26 @@ class CheckCodeEmailPassword extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
 
-//     final defaultPinTheme = PinTheme(
-//   width: 56,
-//   height: 56,
-//   textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
-//   decoration: BoxDecoration(
-//     border: Border.all(color: Color.fromARGB(255, 46, 50, 53)),
-//     borderRadius: BorderRadius.circular(20),
-//   ),
-// );
+    final defaultPinTheme = PinTheme(
+  width: 56,
+  height: 56,
+  textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+  decoration: BoxDecoration(
+    border: Border.all(color: Color.fromARGB(255, 46, 50, 53)),
+    borderRadius: BorderRadius.circular(20),
+  ),
+);
 
-// final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-//   border: Border.all(color: Color.fromARGB(51, 5, 122, 38)),
-//   borderRadius: BorderRadius.circular(8),
-// );
+final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+  border: Border.all(color: Color.fromARGB(51, 5, 122, 38)),
+  borderRadius: BorderRadius.circular(8),
+);
 
-// final submittedPinTheme = defaultPinTheme.copyWith(
-//   decoration: defaultPinTheme.decoration!.copyWith(
-//     color: Color.fromARGB(233, 7, 119, 224),
-//   ),
-// );
+final submittedPinTheme = defaultPinTheme.copyWith(
+  decoration: defaultPinTheme.decoration!.copyWith(
+    color: Color.fromARGB(233, 7, 119, 224),
+  ),
+);
 
 
     return Scaffold(
@@ -94,27 +94,27 @@ class CheckCodeEmailPassword extends StatelessWidget {
                     ),
                     const SizedBox(height: 50),
 
-//                     Pinput(
-//   defaultPinTheme: defaultPinTheme,
-//   focusedPinTheme: focusedPinTheme,
-//   submittedPinTheme: submittedPinTheme,
-//   validator: (s) {
+                    Pinput(
+  defaultPinTheme: defaultPinTheme,
+  focusedPinTheme: focusedPinTheme,
+  submittedPinTheme: submittedPinTheme,
+  validator: (s) {
 
 
-//     int  length = s!.length;
-//     if(length==4){
-//       return 'completo';
-//     }else{
+    int  length = s!.length;
+    if(length==4){
+      return 'completo';
+    }else{
 
-//     }
+    }
 
-//   },
-//   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-//   showCursor: true,
-//   onCompleted: (pin) {
-//     send(context,pin);
-//   },
-// ),
+  },
+  pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+  showCursor: true,
+  onCompleted: (pin) {
+    send(context,pin);
+  },
+),
 
 const SizedBox(height: 70),
 
@@ -122,7 +122,7 @@ const SizedBox(height: 70),
             margin: const EdgeInsets.only(top: 15.0),
             child: TextButton(
               onPressed: () {
-                // Get.offAllNamed(Routes.sendInstruction);
+                 Get.offAllNamed(Routes.sendInstructionsView);
               },
               child: Text(
                 "¿No ha llevo el codigo verificacion?",

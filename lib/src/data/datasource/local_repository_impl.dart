@@ -43,9 +43,15 @@ final _user = 'USER';
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   // final name = sharedPreferences.getString(_pref_name);
   // final image = sharedPreferences.getString(_pref_image);
+   User user= User();
+   try {
   final username = await sharedPreferences.getString(_user);
   Map<String, dynamic> userMap = jsonDecode(username!);
-  final User user = User.fromJson(userMap);
+  user = User.fromJson(userMap);
+   } catch (e) {
+     
+   }
+  
   return user;
   }
   

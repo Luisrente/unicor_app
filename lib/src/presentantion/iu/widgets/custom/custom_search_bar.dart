@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../context/export_context.dart';
@@ -49,7 +51,12 @@ class SearchBar extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              onChanged: (value) => valueTextField = value,
+              onChanged: (value) {
+
+                valueTextField = '$value';
+
+
+              },
             ),
           ),
           SizedBox(width: size.width * 0.03),

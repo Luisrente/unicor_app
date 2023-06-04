@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:unicor_app/src/domain/models/user_model.dart';
@@ -15,13 +16,11 @@ import '../../presentantion/context/app_assets.dart';
 class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
 
 
-
   @override
   Future<LoginResponse> login( LoginRequest login)  async{
     try {
-    final datda = {'correo': login.username, 'password': login.password};
-    final data = {'correo': 'Luis@gmail.com', 'password': '12345678'};
-    final uri = Uri.parse('http://3.85.53.75:80/api/users/login');
+    final data = {'correo': login.username, 'password': login.password};
+    final uri = Uri.parse('${AppAssets.url}/api/auth/login');
     final resp = await http.post(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
 
     if (resp.statusCode == 200 || resp.statusCode ==201) {
@@ -43,9 +42,9 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   }
 
   @override
-  Future<User> getUserFromToken(String token) async{
+  Future<User> getUserFromToken(String iud) async{
   try {
-    final uri = Uri.parse('http://3.85.53.75:80/api/usuarios/${token}');
+    final uri = Uri.parse('${AppAssets.url}/api/users/${iud}');
     final resp = await http.get(uri, headers: {'Content-Type': 'application/json'});
     if (resp.statusCode == 200 || resp.statusCode ==201) {
       final  response = userFromJson(resp.body);
@@ -61,9 +60,23 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   }
   
   @override
-  Future<LoginResponse> changePass(String id, String pass) {
-    // TODO: implement changePass
-    throw UnimplementedError();
+  Future<User> changePass(String id, String pass) async{
+    try {
+    final data = {'password': pass};
+    final uri = Uri.parse('${AppAssets.url}/api/users/$id');
+    final resp = await http.put(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
+    if (resp.statusCode == 200 || resp.statusCode ==201) {
+      final loginResponse = userFromJson(resp.body);
+      return loginResponse;
+    }else{
+    throw AuthException();
+    }      
+    } catch (e) {  
+      print(e);
+          
+      throw AuthException();
+    }
+   
   }
   
   @override
@@ -77,10 +90,10 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
     // TODO: implement register
     throw UnimplementedError();
   }
+
   
   @override
   Future<LoginResponse> send(String email) async {
-  
   try {
     final data = {'correo': email};
     final uri = Uri.parse('${AppAssets.url}/api/auth/send');
@@ -96,8 +109,6 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
     } catch (e) {
       throw AuthException();
     }
-
-
   }
   
   @override
@@ -105,5 +116,49 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
     // TODO: implement verifyCode
     throw UnimplementedError();
   }
+  
 
+@override
+  Future<User?> loadPhoto(String photo, String id, String type)  async{
+    try {
+    final newPictureFile = File.fromUri(Uri(path: photo));
+    final url = Uri.parse('${AppAssets.url}/api/uploads/$type/usuarios/$id');
+    final imageUploadRequest = http.MultipartRequest('PUT', url);
+    final file = await http.MultipartFile.fromPath('archivo', newPictureFile.path);
+    imageUploadRequest.files.add(file);
+    final streamResponse = await imageUploadRequest.send();
+    final resp = await http.Response.fromStream(streamResponse);
+
+    if (resp.statusCode == 200 || resp.statusCode == 201) {
+      final  response = userFromJson(resp.body);
+      return response;
+
+      } else {
+        throw AuthException();
+      }      
+    } catch (e) {
+      
+    }
+
+}
+
+  @override
+  Future<User?> userState(String id) async {
+    try {
+    final data = {'verifi': "pending"};
+    final uri = Uri.parse('${AppAssets.url}/api/users/$id');
+    final resp = await http.put(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
+    if (resp.statusCode == 200 || resp.statusCode ==201) {
+      final loginResponse = userFromJson(resp.body);
+      return loginResponse;
+    }else{
+    throw AuthException();
+    }      
+    } catch (e) {  
+      print(e);
+          
+      throw AuthException();
+    }
+
+  }
 }

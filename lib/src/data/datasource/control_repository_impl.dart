@@ -14,13 +14,13 @@ import '../../presentantion/context/app_assets.dart';
 class ControlRepositoryImpl extends ControlRepositoryInterface {
 
 
-  // late LocalRepositoryInterface localRepositoryInterface;
 
  
   @override
   Future<User> searchUser(String id) async {
+
     try {
-    final uri = Uri.parse('${AppAssets.url}/api/usuarios/${id}');
+    final uri = Uri.parse('${AppAssets.url}/api/users/cedula/${id}');
     final resp = await http.get(uri, headers: {'Content-Type': 'application/json'});
     if (resp.statusCode == 200 || resp.statusCode ==201) {
       final  response = userFromJson(resp.body);
@@ -32,6 +32,7 @@ class ControlRepositoryImpl extends ControlRepositoryInterface {
       log('${e}');
       throw AuthException();
     }  
+
   }
 
   
@@ -51,6 +52,27 @@ class ControlRepositoryImpl extends ControlRepositoryInterface {
       log('${e}');
       throw AuthException();
     }  
+  }
+  
+  @override
+  Future<User> searchUserQr(String id) async {
+
+      try {
+    final uri = Uri.parse('${AppAssets.url}/api/users/qr/${id}');
+    final resp = await http.get(uri, headers: {'Content-Type': 'application/json'});
+    if (resp.statusCode == 200 || resp.statusCode ==201) {
+      final  response = userFromJson(resp.body);
+      return response;
+    }else{
+    throw AuthException();
+    }      
+    } catch (e) {
+      log('${e}');
+      throw AuthException();
+    }  
+
+ 
+
   }
 
 

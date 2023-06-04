@@ -31,7 +31,7 @@ class UserPreferences {
   }
 
   String getString(String key){
-    return '_prefs!.getString(key)??""';
+    return _prefs!.getString(key)??"";
   }
 
   bool getBool(String key){

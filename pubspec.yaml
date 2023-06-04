@@ -52,6 +52,10 @@ dependencies:
   google_fonts: ^4.0.4
   flutter_barcode_scanner: ^2.0.0
   quickalert: ^1.0.1
+  pinput: ^2.2.31
+  image_cropper: ^1.4.1
+  video_player: ^2.6.1
+  flutter_svg: ^2.0.5
   # pinput: ^2.2.31
   
 

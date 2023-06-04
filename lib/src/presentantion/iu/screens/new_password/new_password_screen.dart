@@ -1,65 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 import '../../../context/export_context.dart';
+import '../../../router/router.dart';
 import '../../../utils/show_alert.dart';
 import '../../../utils/validators.dart';
 import '../../controllers/export_controllers.dart';
 import '../../widgets/export_widget.dart';
 
-class CreateNewPasswordView extends StatelessWidget {
-   CreateNewPasswordView({Key? key}) : super(key: key);
+class NewPasswordScreen extends StatelessWidget {
+   NewPasswordScreen({Key? key}) : super(key: key);
 
-
-
-  final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode1 = FocusNode();
+  final FocusNode _password1FocusNode = FocusNode();
+  final FocusNode _password2FocusNode = FocusNode();
 
   final AuthController controller = AuthController.initializeController();
   final SharedController _sharedController = SharedController.initializeController();
 
-
   void update( BuildContext context ) async {
-    // final result  = await controller.changePassword();
-    // if(result){
-    //   controller.routerRol();
-    // }else{
-    //   return mostrarAlerta(context, 'Login incorrecto',
-    // 'Por favor complete los campos');
-    // }
+    final result  = await controller.changePassword();
+    if(result){
+      controller.routerRol();
+    }else{
+
+      return mostrarAlerta(context, 'Login incorrecto',
+    'Por favor complete los campos');
+
+    }
    }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      // appBar: AppBar(
-      //   title: const Text(
-      //     'Back',
-      //     style: TextStyle(color: Colors.black),
-      //   ),
-      //   leadingWidth: 30,
-      //   leading: IconButton(
-      //     icon: GestureDetector(
-      //       onTap: (){
-      //         Navigator.pop(context);
-      //       },
-      //       child: const Icon(
-      //           Icons.arrow_back),
-      //     ),
-      //     onPressed: () {},
-      //   ),
-      // ),
-            appBar: const CustomAppBar(title: "Mi cuenta"),
-
-
+      appBar: CustomAppBarPhoto(
+        leadingWidget: TextButton(
+          child:  Icon(Icons.chevron_left_outlined , size: 40),
+          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+          onPressed: () {
+           Get.offNamed(Routes.account);
+          },
+        )  
+        ),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
+ const SizedBox(
+              height: 16,
+            ),
+
+                Container(
+              child: SvgPicture.asset(
+                'assets/password.svg',
+                width: 80,
+                height: 120,
+              ),
+            ),
+
             const SizedBox(
               height: 16,
             ),
@@ -85,33 +86,11 @@ class CreateNewPasswordView extends StatelessWidget {
               height: 4,
             ),
 
-
-            // SizedBox(
-            //   height: 70,
-            //   child: TextFormField(
-            //     style: const TextStyle(color: Colors.black),
-            //     obscureText: true,
-            //     decoration: InputDecoration(
-            //       helperText: 'Debe tener al menos 8 caracteres.',
-            //       helperStyle: const TextStyle(fontSize: 14),
-            //       suffixIcon: IconButton(
-            //         icon: const Icon(Icons.visibility_off),
-            //         onPressed: () {
-            //           //change icon
-            //         },
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
-             Obx(() =>
-
-
           CustomTextFormField(
             placeHolder: 'Contraseña',
             errorText: _sharedController.findErrorMessage("password"),
             obscurer: _sharedController.isObscured.value,
-            focusNode: _passwordFocusNode,
+            focusNode: _password1FocusNode,
                         margin: const EdgeInsets.all( 20.0),
 
             constraints: const BoxConstraints(maxWidth: 300.0),
@@ -119,9 +98,7 @@ class CreateNewPasswordView extends StatelessWidget {
               String? error = validateEmpty(value);
               _sharedController.setErrorMessage("password", error);
               if(error==null){
-                // controller.pass2.value=value;
-
-                // _screenController.credentials.password = value;
+          controller.password1.value=value;
               }
             },
             isPasswordInput: true,
@@ -138,7 +115,7 @@ class CreateNewPasswordView extends StatelessWidget {
             fillColor: AppAssets.whiteColor,
             inputBorder:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          ),),
+          ),
 
             
             const SizedBox(
@@ -152,23 +129,19 @@ class CreateNewPasswordView extends StatelessWidget {
               height: 4,
             ),
 
-             Obx(() =>
-
 
           CustomTextFormField(
             placeHolder: 'Contraseña',
             errorText: _sharedController.findErrorMessage("password"),
             obscurer: _sharedController.isObscured.value,
-            focusNode: _passwordFocusNode1,
+            focusNode: _password2FocusNode,
                         margin: const EdgeInsets.all( 20.0),
-
             constraints: const BoxConstraints(maxWidth: 300.0),
             onChangedFunction: (value){
               String? error = validateEmpty(value);
               _sharedController.setErrorMessage("password", error);
               if(error==null){
-// controller.pass1.value = value;
-                // _screenController.credentials.password = value;
+               controller.password2.value=value;
               }
             },
             isPasswordInput: true,
@@ -183,26 +156,30 @@ class CreateNewPasswordView extends StatelessWidget {
             },
             inputType: TextInputType.text,
             fillColor: AppAssets.whiteColor,
-            inputBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          ),),
-            // SizedBox(
-            //   height: 70,
-            //   child: TextFormField(
-            //     style: const TextStyle(color: Colors.black),
-            //     obscureText: true,
-            //     decoration: InputDecoration(
-            //       helperText: 'Ambas contraseñas deben coincidir.',
-            //       helperStyle: const TextStyle(fontSize: 14),
-            //       suffixIcon: IconButton(
-            //         icon: const Icon(Icons.visibility_off),
-            //         onPressed: () {
-            //           //change icon
-            //         },
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            // inputBorder:
+            //     OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          ),
+
+
+
+          Obx(() => CustomButton(
+                label: "Enviar ",
+                 margin: const EdgeInsets.symmetric(vertical: 15.0),
+                constraints: const BoxConstraints(maxWidth: 300.0),
+                backgroundColor: AppAssets.primaryColor,
+                onPressed: 
+                (
+                controller.password1.value == ''
+                || controller.password2 == '' 
+                || controller.password1.value != controller.password2.value
+                ) 
+                ? null :
+                 () => update(context)),
+                ),
+          
+          
+          
+      
             const SizedBox(
               height: 16,
             ),
