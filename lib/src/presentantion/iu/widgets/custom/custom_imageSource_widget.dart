@@ -120,10 +120,10 @@ class CustomImageSourceWidget extends StatelessWidget {
 
   void getImageFromSource(ImageSource source) async {
     var status = await Permission.camera.status;
-    if (status.isDenied) {
-      await Permission.camera.request();
-      return;
-    }
+    // if (status.isDenied) {
+    //   await Permission.camera.request();
+    //   return;
+    // }
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: source);
     if (image != null) {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -169,19 +170,18 @@ class AdminScreen extends GetWidget<ControlController> {
   String destroy(String qr){
     String id= '1193565289/${DateTime.now()}';
     String input = "1193565289/2023-06-04 10:23:35.615947";
-String output = id.replaceAll(' ', '/');
+    String output = id.replaceAll(' ', '/');
 
 
     String  laes = EncryptionUtils.encryptString(output) ;
 
-    
+
 
        return '';
-
-
-
-
   }
+
+ 
+
 
 
   

@@ -154,44 +154,46 @@ class LoginScreen extends StatelessWidget  {
                 onPressed: (() => login(context)),
                 ),
                 
-          //   ObxValue(
-          //     (p0) {
-          //   print(p0);
-          //   return CustomSeleectLanguage(
-          //     value: l10n.locale,
-          //     childrens: [
-          //       DropdownMenuItem(
-          //         value: 'en',
-          //         child: Row(
-          //           children: [
-          //             const Padding(
-          //                 padding: EdgeInsets.only(right: 10),
-          //                 child: Image(image: AssetImage('assets/ingles.png'))),
-          //             Text(
-          //               l10n.languageEnglish,
-          //               style: const TextStyle(color: Colors.grey),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //       DropdownMenuItem(
-          //         value: 'es',
-          //         child: Row(
-          //           children: [
-          //             const Padding(
-          //                 padding: EdgeInsets.only(right: 10),
-          //                 child:
-          //                     Image(image: AssetImage('assets/español.png'))),
-          //             Text(
-          //               "l10n.languageSpanish",
-          //               style: const TextStyle(color: Colors.grey),
-          //             ),
-          //           ],
-          //         ),
-          //       )
+            // ObxValue(
+            //   (p0) {
+            // print(p0);
+            // return 
+            // CustomSeleectLanguage(
+            //   value: 'ENGLISH',
+            //   childrens: [
+
+            //     DropdownMenuItem(
+            //       value: 'en',
+            //       child: Row(
+            //         children: [
+            //           const Padding(
+            //               padding: EdgeInsets.only(right: 10),
+            //               child: Image(image: AssetImage('assets/ingles.png'))),
+            //           Text(
+            //             'ENGLISH',
+            //             style: const TextStyle(color: Colors.grey),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+                // DropdownMenuItem(
+                //   value: 'es',
+                //   child: Row(
+                //     children: [
+                //       const Padding(
+                //           padding: EdgeInsets.only(right: 10),
+                //           child:
+                //               Image(image: AssetImage('assets/español.png'))),
+                //       Text(
+                //         "l10n.languageSpanish",
+                //         style: const TextStyle(color: Colors.grey),
+                //       ),
+                //     ],
+                //   ),
+                // )
           //     ],
           //     onChangedF: (newValue) {
-          //       saveStatusLanguage(newValue);
+          //       // saveStatusLanguage(newValue);
           //     },
 
           //   );

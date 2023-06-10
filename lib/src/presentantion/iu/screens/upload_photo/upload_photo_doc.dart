@@ -93,12 +93,16 @@ class UploadPhotoDocScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          TitleText(
-          'Cedula cara frontal',
+    
+
+const  TitleText(
+          'Carnet digital',
           margin: const EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.topCenter,
         ),
 
+  
+        
 
         CustomImageSourceWidget(
             key: Key(
@@ -113,8 +117,10 @@ class UploadPhotoDocScreen extends StatelessWidget {
          const  TitleText(
           'Foto de perfil',
           margin: const EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.topCenter,
         ),
+
+
 
         CustomImageSourceWidget(
             key: Key("{_accountController.user.value.img}"),
@@ -141,8 +147,6 @@ class UploadPhotoDocScreen extends StatelessWidget {
 
     )
     );
-
-
   }
     
 }

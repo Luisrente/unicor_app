@@ -16,7 +16,7 @@ class CustomIndenCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height * 0.74;
+    double height = MediaQuery.of(context).size.height * 0.69;
     double padding = MediaQuery.of(context).size.width * 0.07;
 
     return Padding(
@@ -25,12 +25,11 @@ class CustomIndenCard extends StatelessWidget {
         margin: const EdgeInsets.only(top: 20),
         height: height,
         width: double.infinity,
-        constraints: const BoxConstraints(maxHeight: 550, maxWidth: 400 , minHeight:400),
         decoration: cardBordes(),
         child: Stack(children: [
+
           Positioned(left: 0, child: Cargo(dato:user.facultad!)),
 
-          
           Positioned(
               top: 5,
               right: 1,
@@ -40,8 +39,7 @@ class CustomIndenCard extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25)),
                   width: MediaQuery.of(context).size.width * 0.69,
-                  height: MediaQuery.of(context).size.height * 0.70,
-                  constraints: const BoxConstraints(maxHeight: 560, maxWidth: 300, minHeight:400),
+                  height: MediaQuery.of(context).size.height * 0.60,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -79,17 +77,33 @@ class CustomIndenCard extends StatelessWidget {
                                         ),
 
                                         
-                                        SizedBox(
-                                          child: Text('${user.nombre1}',
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.blueAccent),
-                                              softWrap: true,
-                                              maxLines: 3,
-                                              overflow:
-                                                  TextOverflow.ellipsis),
+                                        Row(
+                                          children: [
+
+                                            SizedBox(
+                                          child: const Text(
+                                            'Sede:',
+                                            style:  TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                            maxLines: 1,
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                            SizedBox(
+                                              child: Text('  Monteria  ',
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                  softWrap: true,
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -101,7 +115,15 @@ class CustomIndenCard extends StatelessWidget {
                                 
                                 ),
                       ),
-
+ Text(
+                                      '${user.programa}',
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
 
                                   Text(
                                       'CC:${user.cedula}',
@@ -219,7 +241,7 @@ class _CodigoQRState extends State<_CodigoQR> {
       qr =  '${widget.url}/$encryption';
     });
 
-    timer = Timer.periodic( const Duration(seconds: 120), (timer) {
+    timer = Timer.periodic( const Duration(seconds: 20), (timer) {
         if (mounted) {
     setState(() {
       encryption = EncryptionUtils.encryptString('${widget.documento}${DateTime.now()}');
@@ -280,9 +302,8 @@ class Cargo extends StatelessWidget {
 
     return Container(
         // width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.74,
+        height: MediaQuery.of(context).size.height * 0.69,
         width: MediaQuery.of(context).size.width * 0.16,
-        constraints: const BoxConstraints(maxHeight: 550, maxWidth:100 ,minHeight: 400),
         decoration: _buildBoxDecoration(),
         child: Padding(
           padding: const EdgeInsets.only(top: 18, bottom: 18),

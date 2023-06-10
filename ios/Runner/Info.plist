@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+
+
+<key>NSCameraUsageDescription</key>
+<string>Esta aplicación necesita acceso a su cámara para que pueda tomar fotos</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Esta aplicación necesita acceso a su biblioteca de fotos para que pueda cargar sus fotos</string>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Esta aplicación necesita acceso a su ubicación en tiempo real</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Esta aplicación necesita acceso a su ubicación</string>
+
+<key>NSAppleMusicUsageDescription</key>
+<string>Esta aplicación necesita acceder a los datos personales,tiene uno o más derechos que permiten dicho acceso</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

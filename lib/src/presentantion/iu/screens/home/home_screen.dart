@@ -73,14 +73,26 @@ class PendingWidget extends StatelessWidget {
       children: [
 
 
-        const  Padding(
-                 padding:  EdgeInsets.only(top: 50),
-                 child: TitleText("Verificando informacion",
-                 textStyle:TextStyle( fontSize: 30 , fontWeight: FontWeight.bold),
-                  margin: EdgeInsets.zero, alignment: Alignment.topLeft
-                  
-                  ),
-               ),
+      
+
+Container(
+  width: double.infinity,
+  padding: const EdgeInsets.symmetric(vertical: 60), // Establece el ancho máximo del texto
+  child: const Align(
+    alignment: Alignment.center,
+    child: Text(
+      'Verificando informacion',
+      textAlign: TextAlign.justify,
+      style: TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.bold
+        // Añade cualquier otra propiedad de estilo que desees
+      ),
+    ),
+  ),
+),
+
+
                 Container(
                   padding: EdgeInsets.only(top: 70, bottom: 40),
                   child: SvgPicture.asset(
@@ -92,13 +104,18 @@ class PendingWidget extends StatelessWidget {
 
 
  Container(
-  padding: EdgeInsets.symmetric(vertical: 10),
+  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    width: double.infinity,
+
    child: Text(
                   "Mi carnet digital activo me brinda la oportunidad de llevar toda mi información esencial en un dispositivo y acceder a ella cuando lo necesite.",
                   style: TextStyle(
+                    
                       fontSize: 18.0,
                       color: Colors.grey,
                       fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.justify,
+
                 ),
  ),
 
@@ -122,14 +139,25 @@ class Verification extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-               const  Padding(
-                 padding:  EdgeInsets.only(top: 50),
-                 child: TitleText("Carnet digital",
-                 textStyle:TextStyle( fontSize: 30 , fontWeight: FontWeight.bold),
-                  margin: EdgeInsets.zero, alignment: Alignment.topLeft
-                  
-                  ),
-               ),
+
+          Container(
+  width: double.infinity,
+  padding: const EdgeInsets.symmetric(vertical: 60), // Establece el ancho máximo del texto
+  child: const Align(
+    alignment: Alignment.center,
+    child: Text(
+      'Carnet digital',
+      textAlign: TextAlign.justify,
+      style: TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.bold
+        // Añade cualquier otra propiedad de estilo que desees
+      ),
+    ),
+  ),
+),
+
+
                 Container(
                   padding: EdgeInsets.only(top: 70, bottom: 40),
                   child: SvgPicture.asset(
@@ -140,16 +168,18 @@ class Verification extends StatelessWidget {
 ),
 
  Container(
-  padding: EdgeInsets.symmetric(vertical: 10),
-   child: Text(
-                  "Mi carnet digital activo me brinda la oportunidad de llevar toda mi información esencial en un dispositivo y acceder a ella cuando lo necesite.",
+  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      width: double.infinity,
+
+   child:const Text(
+                  "El carnet digital  activo  brinda  la  oportunidad  de llevar  toda  la  información  esencial  en  un  dispositivo y acceder a ella cuando lo necesite.",
                   style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.grey,
                       fontWeight: FontWeight.w300),
                 ),
  ),
-          CustomButton(label: "Activa tu cardes" , onPressed: (){
+          CustomButton(label: "Activa tu carde" , onPressed: (){
           Get.offAllNamed(Routes.uploadPhoto );
           })
         ]),
