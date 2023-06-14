@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -31,6 +30,31 @@ class AdminScreen extends GetWidget<ControlController> {
    void search( BuildContext context, String id ) async {
     try {  
 
+    final result  = await controller.validation(id);
+
+    if(result ){
+      Get.toNamed(Routes.adminDetails);
+    }else{
+        return  QuickAlert.show(
+   context: context,
+   type: QuickAlertType.error,
+   title: 'Error...',
+   text: 'El documento no está registrado o presenta un error. statusca los detalles o contacta al administrador.',
+  );
+    }  
+    } catch (e) {
+      return  QuickAlert.show(
+   context: context,
+   type: QuickAlertType.error,
+   title: 'Error...',
+   text: 'El documento no está registrado o presenta un error. statusca los detalles o contacta al administrador.',
+  );
+    }
+   }
+
+   void searchqr( BuildContext context, String id ) async {
+    try {  
+
     final result  = await controller.validationQr(id);
 
     if(result ){
@@ -40,7 +64,7 @@ class AdminScreen extends GetWidget<ControlController> {
    context: context,
    type: QuickAlertType.error,
    title: 'Error...',
-   text: 'El documento no está registrado o presenta un error. Verifica los detalles o contacta al administrador.',
+   text: 'El documento no está registrado o presenta un error. statusca los detalles o contacta al administrador.',
   );
     }  
     } catch (e) {
@@ -48,7 +72,7 @@ class AdminScreen extends GetWidget<ControlController> {
    context: context,
    type: QuickAlertType.error,
    title: 'Error...',
-   text: 'El documento no está registrado o presenta un error. Verifica los detalles o contacta al administrador.',
+   text: 'El documento no está registrado o presenta un error. statusca los detalles o contacta al administrador.',
   );
     }
    }
@@ -141,7 +165,7 @@ class AdminScreen extends GetWidget<ControlController> {
       ),
             floatingActionButton:  FloatingActionButton(
               backgroundColor:AppAssets.primaryColor,              
-              onPressed:()=> destroy('https://3.85.53.75:3000/gnjngnjgjn/eieieieieiieieieieiie') ,
+              onPressed:()=> snar(context) ,
               child: Icon(Icons.qr_code),)
     );
   }
@@ -149,16 +173,12 @@ class AdminScreen extends GetWidget<ControlController> {
 
 
   void snar(BuildContext context) async{
-    var status = await Permission.camera.status;
+        await Permission.camera.status;
         String barcodeScanRes;
-
         try {
-          barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              '#ff6666', 'Cancel', false, ScanMode.QR);
-
-        String id= barcodeScanRes.replaceFirst(AppAssets.qrURL, '');
-        search(context,barcodeScanRes );
-
+        barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', false, ScanMode.QR);
+        String id= barcodeScanRes.replaceFirst(AppAssets.qrURL+'/', '');
+        searchqr(context,id );
 
         } catch(ex){
           // log(ex.toString());
@@ -171,8 +191,6 @@ class AdminScreen extends GetWidget<ControlController> {
     String id= '1193565289/${DateTime.now()}';
     String input = "1193565289/2023-06-04 10:23:35.615947";
     String output = id.replaceAll(' ', '/');
-
-
     String  laes = EncryptionUtils.encryptString(output) ;
 
 

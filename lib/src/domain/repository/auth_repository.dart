@@ -14,6 +14,7 @@ Future<void> logout(String token);
 Future<LoginResponse>send( String  email);
 Future<LoginResponse>verifyCode( String  email , String code);
 Future<User?> userState(String id);
+Future<bool> application(String userid);
 
 
 

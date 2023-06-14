@@ -54,6 +54,7 @@ final emailTextController = TextEditingController();
 
  RxString password1 = ''.obs;
  RxString password2 = ''.obs;
+ String uid = '';
 
 
 
@@ -70,7 +71,23 @@ Future<bool> changePassword() async{
     loginState(LoginState.loading);
     final usuario = await localRepositoryInterface.getUser();
     final loginResponse = await authRepositoryInterface.changePass(usuario.uid! , password1.toString());
+    await localRepositoryInterface.saveToken("loginResponse.token");
     await localRepositoryInterface.saveUser(usuario);
+    return true;
+    } on AuthException catch(_)  {
+      loginState(LoginState.initial);
+      return false;
+    }
+  }
+
+Future<bool> changePasswordVer() async{
+    try {
+    loginState(LoginState.loading);
+    final usuario = await localRepositoryInterface.getUser();
+
+    final loginResponse = await authRepositoryInterface.changePass(usuario.uid! , password1.toString());
+    await localRepositoryInterface.saveToken("loginResponse.token");
+    await localRepositoryInterface.saveUser(loginResponse);
     return true;
     } on AuthException catch(_)  {
       loginState(LoginState.initial);
@@ -81,9 +98,9 @@ Future<bool> changePassword() async{
 Future<bool> verifyCodepas(String code ) async{
     // final email= enamilTextController.text;
     try {
-     final User usuario = await localRepositoryInterface.getUser();
-     log('${usuario.correo}');
-    final loginResponse = await authRepositoryInterface.verifyCode(usuario.correo!, code);
+    final loginResponse = await authRepositoryInterface.verifyCode(corre.toString() , code);
+    await localRepositoryInterface.saveToken("loginResponse.token");
+   await  localRepositoryInterface.saveUser(loginResponse.user!);
     return true;
     } on AuthException catch(_)  {
       loginState(LoginState.initial);
@@ -93,11 +110,17 @@ Future<bool> verifyCodepas(String code ) async{
 
 
 Future<bool> login() async{
+    loginState(LoginState.loading);
     try {
     final loginResponse = await authRepositoryInterface.login(LoginRequest( corre.toString() , password.toString()));
     await localRepositoryInterface.saveToken(loginResponse.token!);
-    await localRepositoryInterface.saveUser(loginResponse.usuario!);
+    await localRepositoryInterface.saveUser(loginResponse.user!);
+
+   final suer=     await localRepositoryInterface.getUser();
+
     loadUser();
+    loginState(LoginState.initial);
+
     return true;
     } on AuthException catch(_)  {
     loginState(LoginState.initial);
@@ -110,18 +133,20 @@ Future<void> logout() async{
   Get.offAllNamed(Routes.login);
 }
 
-void routerRol() async{
+
+Future<void> routerRol() async{
       final usuario = await localRepositoryInterface.getUser();
       try { 
-      if (usuario.verifi=='false'){
-      Get.offAllNamed(Routes.verifyCode , arguments: usuario );
-      }else{
-
-      if (usuario.rol == 'ADMIN_ROLE')
-      Get.offAllNamed(Routes.admin);
-
-      if(usuario.rol == 'USER_ROLE')
+      final usuario = await localRepositoryInterface.getUser();
+      if (usuario.status=='REGISTER' ){
       Get.offAllNamed(Routes.home , arguments: usuario);
+      }else{
+      if(usuario.role == "ESTUDIANTE")
+      Get.offAllNamed(Routes.home);
+
+      if(usuario.role == "ADMIN")
+      Get.offAllNamed(Routes.admin);
+      
       }
 
       } catch (e) {
@@ -135,24 +160,12 @@ void routerRol() async{
     try {
     loginState(LoginState.loading);
     final loginResponse = await authRepositoryInterface.send(corre.toString());
-    await localRepositoryInterface.saveUser(loginResponse.usuario!);
     return true;
     } on AuthException catch(_)  {
       loginState(LoginState.initial);
       return false;
     }
   }
-
-
-
-
-
-
-
-
-
-
-  
 
 
 }

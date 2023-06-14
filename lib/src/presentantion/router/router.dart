@@ -29,6 +29,7 @@ class Routes{
   //PASSWORD
   static const String checkCodeEmailPassword = '/checkCodeEmailPassword';
   static const String newPassword = '/newPassword';
+  static const String newPasswordFor = '/newPasswordFor';
   static const String sendInstructionsView = '/sendInstructionsView';
 
 }
@@ -54,7 +55,8 @@ static final pages = [
     GetPage(name: Routes.uploadPhoto, page: (() =>  UploadPhotoDocScreen())),
     //PASSWORD
     GetPage(name: Routes.checkCodeEmailPassword, page: (() => CheckCodeEmailPassword())),
-    GetPage(name: Routes.newPassword, page: (() => NewPasswordScreen())),
+    GetPage(name: Routes.newPassword, page: (() => NewPasswordScreen()),bindings: [MainBinding(),AuthBinding(),AccountBinding()]),
+    GetPage(name: Routes.newPasswordFor, page: (() => NewPasswordScreenFortgot()),bindings: [MainBinding(),AuthBinding(),AccountBinding()]),
     GetPage(name: Routes.sendInstructionsView, page: (() => SendInstructionsView()), bindings: [AuthBinding(),MainBinding()]),
 
 

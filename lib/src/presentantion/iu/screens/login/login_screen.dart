@@ -34,21 +34,12 @@ class LoginScreen extends StatelessWidget  {
    void login( BuildContext context ) async {
     final result  = await controller.login();
     if(result){
-      controller.routerRol();
+     await controller.routerRol();
     }else{
       return mostrarAlerta(context, 'Login incorrecto',
     'Por favor complete los campos');
     }
    }
-
-
-  // saveStatusLanguage(String locale) async {
-  //   SharedPreferences prefers = await SharedPreferences.getInstance();
-  //   await prefers.setString('locale', locale);
-  //   _languageController.status.value = locale;
-  // }
-  //    AppLanguage l10n = AppLanguage();
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,22 +50,19 @@ class LoginScreen extends StatelessWidget  {
             physics: const BouncingScrollPhysics(),
             child: Stack(
               children: [
-                
-                Container(
+                SizedBox(
                 height: MediaQuery.of(context).size.height * 0.9,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
                     Container(
-                      margin: EdgeInsets.only(top: 80),
+                      margin: const EdgeInsets.only(top: 80),
                       child: Image.asset(
                       AppAssets.loginBackgroundImage,
                        width: 300.0,
                        height: 100,
                        ),
                     ),
-                    
                     Container(
                       margin: const EdgeInsets.only(top: 5),
                       child: Column(
@@ -82,7 +70,7 @@ class LoginScreen extends StatelessWidget  {
 
                     Obx(() {
                   return CustomTextFormField(
-                  placeHolder: 'Correo',
+                  placeHolder: 'email',
                    errorText: _sharedController.findErrorMessage("email"),
                   focusNode: _emailFocusNode,
                   margin: const EdgeInsets.all( 20.0),
@@ -140,7 +128,7 @@ class LoginScreen extends StatelessWidget  {
           ),),
                                       
                     GestureDetector(
-            child: Text( "¿Olvidates tu contraseña?", style: TextStyle( color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300 ))  ,
+            child: const Text( "¿Olvidates tu contraseña?", style: TextStyle( color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300 ))  ,
             onTap: () {
               Get.toNamed(Routes.sendInstructionsView);
             },
@@ -154,50 +142,6 @@ class LoginScreen extends StatelessWidget  {
                 onPressed: (() => login(context)),
                 ),
                 
-            // ObxValue(
-            //   (p0) {
-            // print(p0);
-            // return 
-            // CustomSeleectLanguage(
-            //   value: 'ENGLISH',
-            //   childrens: [
-
-            //     DropdownMenuItem(
-            //       value: 'en',
-            //       child: Row(
-            //         children: [
-            //           const Padding(
-            //               padding: EdgeInsets.only(right: 10),
-            //               child: Image(image: AssetImage('assets/ingles.png'))),
-            //           Text(
-            //             'ENGLISH',
-            //             style: const TextStyle(color: Colors.grey),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-                // DropdownMenuItem(
-                //   value: 'es',
-                //   child: Row(
-                //     children: [
-                //       const Padding(
-                //           padding: EdgeInsets.only(right: 10),
-                //           child:
-                //               Image(image: AssetImage('assets/español.png'))),
-                //       Text(
-                //         "l10n.languageSpanish",
-                //         style: const TextStyle(color: Colors.grey),
-                //       ),
-                //     ],
-                //   ),
-                // )
-          //     ],
-          //     onChangedF: (newValue) {
-          //       // saveStatusLanguage(newValue);
-          //     },
-
-          //   );
-          // }, _languageController.status),
                         ],
                       ),
                     ),
@@ -253,14 +197,14 @@ class LoginScreen extends StatelessWidget  {
       child: Column(
         children: [
 
-          SizedBox(
+        const  SizedBox(
             height: 50,
           ),
           Image.asset(
             AppAssets.loginBackgroundImage,
             width: 300.0,
           ),
-          SizedBox( height: 20,),
+         const SizedBox( height: 20,),
           Container(
             margin: const EdgeInsets.only(top: 20.0),
             child: Text(
@@ -280,9 +224,8 @@ class LoginScreen extends StatelessWidget  {
                 fontSize: 22,
                 color: AppAssets.blackColor),
           ),
-      
           CustomTextFormField(
-         placeHolder: 'Correo electrónico',
+         placeHolder: 'email electrónico',
          // errorText: _sharedController.findErrorMessage("email"),
          // focusNode: _emailFocusNode,
          margin: const EdgeInsets.only(top: 20.0),

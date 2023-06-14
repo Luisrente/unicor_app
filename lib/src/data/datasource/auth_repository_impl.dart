@@ -19,14 +19,17 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   @override
   Future<LoginResponse> login( LoginRequest login)  async{
     try {
-    final data = {'correo': login.username, 'password': login.password};
+    final data = {'email': login.username, 'password': login.password};
     final uri = Uri.parse('${AppAssets.url}/api/auth/login');
     final resp = await http.post(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
 
     if (resp.statusCode == 200 || resp.statusCode ==201) {
+      log(resp.body);
       final loginResponse = loginResponseFromJson(resp.body);
-      return LoginResponse( token : loginResponse.token, usuario: loginResponse.usuario );
+
+      return LoginResponse( token : loginResponse.token , user: loginResponse.user);
     }else{
+
     throw AuthException();
     }      
     } catch (e) {      
@@ -44,7 +47,7 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   @override
   Future<User> getUserFromToken(String iud) async{
   try {
-    final uri = Uri.parse('${AppAssets.url}/api/users/${iud}');
+    final uri = Uri.parse('${AppAssets.url}/api/users/$iud');
     final resp = await http.get(uri, headers: {'Content-Type': 'application/json'});
     if (resp.statusCode == 200 || resp.statusCode ==201) {
       final  response = userFromJson(resp.body);
@@ -53,8 +56,6 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
     throw AuthException();
     }      
     } catch (e) {
-      log('${e}');
-      log('${e}');
       throw AuthException();
     } 
   }
@@ -95,13 +96,13 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   @override
   Future<LoginResponse> send(String email) async {
   try {
-    final data = {'correo': email};
+    final data = {'email': email};
     final uri = Uri.parse('${AppAssets.url}/api/auth/send');
     final resp = await http.post(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
     log('${resp.statusCode}');
     if (resp.statusCode == 200 || resp.statusCode ==201) {
       final loginResponse = loginResponseFromJson(resp.body);
-      return LoginResponse( token : loginResponse.token, usuario: loginResponse.usuario );
+      return LoginResponse( token : loginResponse.token, user: loginResponse.user );
     }else{
     log('eee');
     throw AuthException();
@@ -112,9 +113,24 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   }
   
   @override
-  Future<LoginResponse> verifyCode(String email, String code) {
-    // TODO: implement verifyCode
-    throw UnimplementedError();
+  Future<LoginResponse> verifyCode(String email, String code) async {
+     try {
+    final data = {'email': email, "codigo":code};
+    final uri = Uri.parse('${AppAssets.url}/api/auth/verifi');
+    final resp = await http.post(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
+    log('${resp.statusCode}');
+    if (resp.statusCode == 200 || resp.statusCode ==201) {
+      final loginResponse = loginResponseFromJson(resp.body);
+      return LoginResponse( token : loginResponse.token, user: loginResponse.user );
+    }else{
+    log('eee');
+    throw AuthException();
+    }      
+    } catch (e) {
+      throw AuthException();
+    }
+
+   
   }
   
 
@@ -145,7 +161,7 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
   @override
   Future<User?> userState(String id) async {
     try {
-    final data = {'verifi': "pending"};
+    final data = {'status': "PENDIENTE"};
     final uri = Uri.parse('${AppAssets.url}/api/users/$id');
     final resp = await http.put(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
     if (resp.statusCode == 200 || resp.statusCode ==201) {
@@ -160,5 +176,27 @@ class AuthRepocitoryInterfaceImpl extends AuthRepositoryInterface{
       throw AuthException();
     }
 
+  }
+  
+  @override
+  Future<bool> application(String userid) async{
+     try {
+    final data = {'user_id': userid};
+    final uri = Uri.parse('${AppAssets.url}/api/application');
+    final resp = await http.post(uri,body: jsonEncode(data),headers: {'Content-Type': 'application/json'});
+    if (resp.statusCode == 200 || resp.statusCode ==201) {
+      return true;
+    }else{
+            return false;
+
+    }      
+    } catch (e) {  
+      return false;
+    }
+
+
+
+
+  
   }
 }

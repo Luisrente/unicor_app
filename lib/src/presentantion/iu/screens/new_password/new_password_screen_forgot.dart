@@ -10,8 +10,8 @@ import '../../../utils/validators.dart';
 import '../../controllers/export_controllers.dart';
 import '../../widgets/export_widget.dart';
 
-class NewPasswordScreen extends StatelessWidget {
-   NewPasswordScreen({Key? key}) : super(key: key);
+class NewPasswordScreenFortgot extends StatelessWidget {
+   NewPasswordScreenFortgot({Key? key}) : super(key: key);
 
   final FocusNode _password1FocusNode = FocusNode();
   final FocusNode _password2FocusNode = FocusNode();
@@ -19,15 +19,15 @@ class NewPasswordScreen extends StatelessWidget {
   final AuthController controller = AuthController.initializeController();
   final SharedController _sharedController = SharedController.initializeController();
 
+  
+
   void update( BuildContext context ) async {
-    final result  = await controller.changePassword();
+    final result  = await controller.changePasswordVer();
     if(result){
       Get.toNamed(Routes.splash);
-
-      
     }else{
-      return mostrarAlerta(context, 'Login incorrecto',
-    'Por favor complete los campos');
+      return mostrarAlerta(context, 'Error',
+    'Por favor verificar la inofrmacion');
 
     }
    }
@@ -41,7 +41,7 @@ class NewPasswordScreen extends StatelessWidget {
           child:  Icon(Icons.chevron_left_outlined , size: 40),
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
           onPressed: () {
-           Get.offNamed(Routes.account);
+           Get.offNamed(Routes.login);
           },
         )  
         ),

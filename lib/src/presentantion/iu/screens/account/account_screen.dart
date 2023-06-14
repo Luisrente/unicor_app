@@ -73,63 +73,82 @@ class AccountScreen extends GetWidget<AccountController> with RouteAware {
     );
   }
 
-  Widget buildAccountDetail(Size size, User user) {
-    
-    String userPhotoUrl = "";
-    // if (currentUserData.profileImg != null) {
-    //   userPhotoUrl = currentUserData.profileImg!.url!;
-    // }
-    return Row(
-      // mainAxisAlignment: MainAxisAlignment.center,
+
+Widget buildAccountDetail(Size size, User user) {
+  String userPhotoUrl = "";
+
+  return Container(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Stack(
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-              constraints: const BoxConstraints(maxWidth: 90.0),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: user.img!.isNotEmpty
-                    ? 
-                  Container(
-                  height: 110,
-                  width: 110,
-                  child: FadeInImage(
+
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 20.0),
+          constraints: const BoxConstraints(maxWidth: 160.0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Color.fromARGB(255, 50, 126, 15),
+                    width: 6.0,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Container(
+                    child: user.identificationPicture!.isNotEmpty
+                      ? FadeInImage(
                           fit: BoxFit.cover,
                           placeholder: AssetImage(AppAssets.noPhoto),
-                          image: NetworkImage(user.img!)),
-                    )
-                    : Image.asset(
-                        AppAssets.noPhoto,
-                        fit: BoxFit.cover,
-                      ),
+                          image: NetworkImage(user.identificationPicture!),
+                        )
+                      : Image.asset(
+                          AppAssets.noPhoto,
+                          fit: BoxFit.cover,
+                        ),
+                  ),
+                ),
               ),
-            ),
-             
-          ],
+            ],
+          ),
         ),
+
+        
+        const SizedBox(height: 10),
+        Container(
+          height: 1,
+          color: Colors.grey,
+        ),
+        const SizedBox(height: 10),
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TitleText("${user.nombre1} ${user.nombre2}",
-                margin: EdgeInsets.zero, alignment: Alignment.topLeft),
+            TitleText(
+              "${user.firstName} ${user.middleName}",
+              margin: EdgeInsets.zero,
+              alignment: Alignment.center,
+            ),
             Text(
-              "${user.facultad}",
+              "${user.role}",
               style: const TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w300),
+                fontSize: 18.0,
+                color: Colors.grey,
+                fontWeight: FontWeight.w300,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
       ],
-    );
-  }
-
+    ),
+  );
+}
+ 
   Widget buildEditableData(Size size , User user ) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -152,13 +171,13 @@ class AccountScreen extends GetWidget<AccountController> with RouteAware {
        
          buildEditableDataTile(
                 size,
-                "Número cedula",
-               "${user.cedula}"
+                "Número identification",
+               "${user.identification}"
                     ),
           
 
           buildEditableDataTile(
-              size, "Correo electrónico", "${user.correo}"),
+              size, "email electrónico", "${user.email}"),
         ],
       ),
     );
@@ -220,14 +239,6 @@ class AccountScreen extends GetWidget<AccountController> with RouteAware {
 
             ),
 
-           TextButton(
-            onPressed: (){ 
-              
-              },
-            child: buildOptionButton(size, "Términos y condiciones"),
-                            style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
-
-            ),
 
           
           // buildOptionButton(size, "Términos y condiciones"),

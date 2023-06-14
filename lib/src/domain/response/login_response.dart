@@ -10,20 +10,20 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 class LoginResponse {
   LoginResponse({
-    this.usuario,
+    this.user,
     this.token,
   });
 
-  final User? usuario;
+  final User? user;
   final String? token;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        usuario: User.fromJson(json["usuario"]),
+        user: User.fromJson(json["user"]),
         token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "usuario": usuario!.toJson(),
+        "usuario": user!.toJson(),
         "token": token,
       };
 }

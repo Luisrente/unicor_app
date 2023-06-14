@@ -42,7 +42,7 @@ class AppLanguage {
       'languageSpanish': 'Español',
       'languageEnglish': 'Ingles',
       'login': 'Inicio de sesión',
-      'email': 'Correo electrónico',
+      'email': 'email electrónico',
       'password': 'Contraseña',
       'forgetPassword': '¿Haz olvidado tu contraseña?',
       'loginBotton': 'Iniciar Sesión',
@@ -345,8 +345,8 @@ class AppLanguage {
     return getText('typingLocalization');
   }
 
-  String get withoutIdentification {
-    return getText('withoutIdentification');
+  String get withoutidentification {
+    return getText('withoutidentification');
   }
 
   String get finished {
@@ -1053,8 +1053,8 @@ class AppLanguage {
     return getText('continuee');
   }
 
-  String get programations {
-    return getText('programations');
+  String get enrollmentstions {
+    return getText('enrollmentstions');
   }
 
   String get withoutRegister {

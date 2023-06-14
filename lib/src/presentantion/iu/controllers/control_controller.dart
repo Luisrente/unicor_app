@@ -50,11 +50,19 @@ ControlController( {
 //   super.onReady();
 // }
 
+
+
 void loadUser() async{
   final currentUser = await localRepositoryInterface.getUser();
-  log( '$currentUser');
    userCurrent(currentUser);
 }
+@override
+  void onInit() {
+    super.onInit();
+    loadUser();
+    //Change value to name2
+  }
+
  
 
  
@@ -74,7 +82,7 @@ void loadUser() async{
   Future<bool> validationQr(String id  ) async { 
      controlState(ControlState.loading);
     try {
-      final controlResponse= await controlRepositoryInterface.searchUser(id.toString());
+      final controlResponse= await controlRepositoryInterface.searchUserQr(id.toString());
        userSearch(controlResponse);
       controlState(ControlState.initial);
       return true;

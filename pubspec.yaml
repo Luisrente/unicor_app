@@ -36,7 +36,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  zoom_tap_animation: ^1.1.0
   iconly: ^1.0.1
   # scroll_snap_list: ^0.9.1
   shared_preferences: ^2.0.20
@@ -54,9 +53,7 @@ dependencies:
   quickalert: ^1.0.1
   pinput: ^2.2.31
   image_cropper: ^1.4.1
-  video_player: ^2.6.1
   flutter_svg: ^2.0.5
-  jwt_decode: ^0.3.1
   flutter_launcher_icons: ^0.13.1
   # pinput: ^2.2.31
   

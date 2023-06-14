@@ -1,4 +1,5 @@
 
+export '/src/presentantion/iu/screens/new_password/new_password_screen_forgot.dart';
 export '/src/presentantion/iu/screens/account/account_screen.dart';
 
 export 'new_password/send_instructions_view.dart';

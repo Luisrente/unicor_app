@@ -6,9 +6,10 @@ class AppAssets {
   AppAssets._();
 
 
-  static String url = 'http://3.85.53.75:3000';
+  static String url = 'https://unicorcard.herokuapp.com';
+  // static String url = 'http://3.85.53.75:3000';
 
-  static String qrURL = 'https://3.85.53.75:3000';
+  static String qrURL = 'https://web1.d1hptnpr6igfhp.amplifyapp.com/#/verification';
   static String keyString = '1a3f8c7e9b2d6f54e0a1b3c5d7e9f0a1';
 
   static String whiteLogo = 'assets/logo_white.png';
@@ -26,16 +27,6 @@ class AppAssets {
   static Color secondaryColor = const Color(0XFF22593C);
   static Color tertiaryColor = const Color(0xFF006EC0);
 
-  // static Map<UserGroup,String> userRoles = {
-  //   UserGroup.OPERATORS:"Operador",
-  //   UserGroup.CERTIFIERS:"Certificador",
-  //   UserGroup.ADMINS:"Administrador",
-  //   UserGroup.CLIENTS:"Cliente",
-  // };
-  // static Map<UserGroup,UserGroup> userRoles = {
-  //   UserGroup.OPERATORS:UserGroup.OPERATORS,
-  //   UserGroup.CERTIFIERS:UserGroup.CERTIFIERS,
-  //   UserGroup.ADMINS:UserGroup.ADMINS,
-  //   UserGroup.CLIENTS:UserGroup.CLIENTS,
-  // };
+
+
 }

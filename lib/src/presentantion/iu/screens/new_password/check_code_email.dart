@@ -21,7 +21,7 @@ class CheckCodeEmailPassword extends StatelessWidget {
 
     final result  = await controller.verifyCodepas( code);
     if(result){
-     Get.toNamed(Routes.newPassword);
+     Get.toNamed(Routes.newPasswordFor);
     }else{
      return mostrarAlerta(context, 'Error ',
     'Error en los datos');
@@ -85,7 +85,7 @@ final submittedPinTheme = defaultPinTheme.copyWith(
                       constraints: BoxConstraints(
                           maxWidth: size.width * 0.85),
                       child: const  Text(
-                       "Para completar la verificacion de tu cuenta , por favor ingresa el codigo de activacion de 4 digitos ",
+                       "Para completar la statuscacion de tu cuenta , por favor ingresa el codigo de activacion de 4 digitos ",
                         textAlign: TextAlign.justify,
                         style:  TextStyle(
                             fontSize: 17.0,
@@ -125,7 +125,7 @@ const SizedBox(height: 70),
                  Get.offAllNamed(Routes.sendInstructionsView);
               },
               child: Text(
-                "¿No ha llevo el codigo verificacion?",
+                "¿No ha llevo el codigo statuscacion?",
                 style: TextStyle(
                     color: AppAssets.blackColor,
                     decoration: TextDecoration.underline,

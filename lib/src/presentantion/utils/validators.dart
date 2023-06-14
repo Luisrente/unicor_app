@@ -3,7 +3,7 @@ String? validateEmail(String email) {
       email,
       RegExp(
           r'^[\w-\.]+[\w-\.](\w)\@\w+((-\w+)|(\w))\.[a-z]{2,}(\.[a-z]{2,})*$'),
-      "Debe ingresar un correo electronico valido");
+      "Debe ingresar un email electronico valido");
 }
 
 String? _generalValidator(String text, RegExp regExp, String errorMsj) {

@@ -22,12 +22,12 @@ class SendInstructionsView extends StatelessWidget {
 
     void send( BuildContext context ) async {
     final result  = await _authcontroller.sendPassword();
+    if(result){
       Get.offAllNamed(Routes.checkCodeEmailPassword);
-    // if(result){
-    // }else{
-    //  return mostrarAlerta(context, 'Error ',
-    // 'Error en los datos');
-    // }
+    }else{
+     return mostrarAlerta(context, 'Error ',
+    'Error en los datos');
+    }
    }
 
     
@@ -43,22 +43,10 @@ class SendInstructionsView extends StatelessWidget {
           },
         )  
         ),
-
-
-
-
-
-
-
-
-     
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-
-
-
     Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
   child: SvgPicture.asset(
@@ -76,14 +64,14 @@ class SendInstructionsView extends StatelessWidget {
               height: 16,
             ),
             Text(
-              'Introduce la dirección de correo electrónico asociada a tu cuenta y te enviaremos un correo electrónico con instrucciones para restablecer tu contraseña',
+              'Introduce la dirección de email electrónico asociada a tu cuenta y te enviaremos un email electrónico con instrucciones para restablecer tu contraseña',
               style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
               height: 16,
             ),
             Text(
-              'Correo electronico',
+              'email electronico',
               style: Theme.of(context).textTheme.subtitle1,
             ),
             const SizedBox(
@@ -92,7 +80,7 @@ class SendInstructionsView extends StatelessWidget {
 
                 Obx(() {
                   return CustomTextFormField(
-                  placeHolder: 'Correo',
+                  placeHolder: 'email',
                    errorText: _sharedController.findErrorMessage("email"),
                   focusNode: _emailFocusNode,
                   margin: const EdgeInsets.all( 20.0),
@@ -130,21 +118,7 @@ class SendInstructionsView extends StatelessWidget {
                 onPressed: (() => send(context)),
                 ),
 
-            // Row(
-            //   children: [
-            //     Expanded(
-            //         child: ElevatedButton(
-            //           onPressed: () {
-            //             _authcontroller.corre.value=_authcontroller.enamilTextController.text;
-            //             send(context);
-            //           },
-            //           child: const Text(
-            //             'Enviar Instruciones',
-            //             style: TextStyle(fontSize: 20),
-            //           ),
-            //         )),
-            //   ],
-            // )
+           
 
 
           ],

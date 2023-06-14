@@ -24,36 +24,47 @@ class AdminDetails extends StatelessWidget {
   final ControlController controller = ControlController.initializeController();
 
     return Scaffold(
-       appBar:  const CustomAppBarPhoto(),
+       appBar:  CustomAppBarPhoto(
+        leadingWidget: TextButton(
+          child:  Icon(Icons.chevron_left_outlined , size: 40),
+          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+          onPressed: () {
+           Get.offNamed(Routes.admin);
+          },
+        )  
+        ),
+
+
       body: Column(
         children: [
           Obx(() => CustomIndenCard(user: controller.userSearch.value)),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomButton(
-                            label: "Cancelar",
-                   margin: const EdgeInsets.symmetric(vertical: 15.0),
-                  constraints: const BoxConstraints(maxWidth: 140.0),
-                  backgroundColor: Colors.red,
-                  onPressed: (){
-                  Get.toNamed(Routes.admin);
-                  }
-                  ),
-                CustomButton(
-                            label: "Aceptar",
-                   margin: const EdgeInsets.symmetric(vertical: 15.0),
-                  constraints: const BoxConstraints(maxWidth: 140.0),
-                  backgroundColor: Colors.green,
-                  onPressed: (){
-                      Get.toNamed(Routes.admin);
-                  }
-                  )
-              ],
-            ),
-          )
+
+          // Padding(
+          //   padding: const EdgeInsets.all(4.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       CustomButton(
+          //                   label: "Cancelar",
+          //          margin: const EdgeInsets.symmetric(vertical: 15.0),
+          //         constraints: const BoxConstraints(maxWidth: 140.0),
+          //         backgroundColor: Colors.red,
+          //         onPressed: (){
+          //         Get.toNamed(Routes.admin);
+          //         }
+          //         ),
+          //       CustomButton(
+          //                   label: "Aceptar",
+          //          margin: const EdgeInsets.symmetric(vertical: 15.0),
+          //         constraints: const BoxConstraints(maxWidth: 140.0),
+          //         backgroundColor: Colors.green,
+          //         onPressed: (){
+          //             Get.toNamed(Routes.admin);
+          //         }
+          //         )
+          //     ],
+          //   ),
+          // )
         ],
       )
 

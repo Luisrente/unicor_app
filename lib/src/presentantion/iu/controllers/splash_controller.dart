@@ -30,32 +30,33 @@ class SplashController extends GetxController{
 
   void validateSession() async {
     final token = await localRepositoryInterface.getToken();
-    if( token != null){
+    try {
+        if( token != null){
       final usuario = await localRepositoryInterface.getUser();
       final user = await authRepositoryInterface.getUserFromToken(usuario.uid!);
       await localRepositoryInterface.saveUser(user);    
-      routerRol () ;
+      routerRol() ;
     }else{
       Get.toNamed(Routes.login);
     }
+      
+    } catch (e) {
+       Get.toNamed(Routes.login);
+
+    }
+    
   }
 
-    void routerRol () async{
+    void routerRol() async{
       final usuario = await localRepositoryInterface.getUser();
-      if (usuario.verifi=='false'){
-      // Get.offNamed(Routes.verifyCode , arguments: usuario );
-      }else{
-      if(usuario.rol == 'USER_ROLE' && usuario.estado == true)
+      if (usuario.status=='REGISTER' ){
       Get.offAllNamed(Routes.home , arguments: usuario);
+      }else{
+      if(usuario.role == "ESTUDIANTE")
+      Get.offAllNamed(Routes.home);
 
-      if(usuario.rol == 'ADMIN_ROLE')
+      if(usuario.role == "ADMIN")
       Get.offAllNamed(Routes.admin);
-
-      
-      if (usuario.rol == "")
-      Get.off(Routes.login);
-
-
       }
 
 

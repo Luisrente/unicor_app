@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:unicor_app/src/presentantion/iu/controllers/main_wrapper_controller.dart';
 import 'package:unicor_app/src/presentantion/iu/screens/export_screen.dart';
 import 'src/presentantion/iu/binding/main_binding.dart';
-import 'src/presentantion/iu/screens/main_wrapper.dart';
 import 'src/presentantion/router/router.dart';
 
 void main() {

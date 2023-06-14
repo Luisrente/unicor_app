@@ -7,7 +7,6 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import '/src/presentantion/iu/screens/upload_photo/upload_photo_profile.dart';
 
 import '../../../context/app_assets.dart';
 import '../../../router/router.dart';
@@ -46,17 +45,15 @@ class UploadPhotoDocScreen extends StatelessWidget {
         text: 'Estamos emocionados de decirte que tu carnet digital ya está disponible para su visualización. Dirígete a tu perfil y disfruta de todos sus beneficios',
         onConfirmBtnTap:(){
       Get.offNamed(Routes.home);
-        }
+        },
+        barrierDismissible: true
           );
     }else{
-
        QuickAlert.show(
         context: context,
         type: QuickAlertType.error,
-        text: 'Lo sentimos por la dificultad al cargar las fotos. Por favor, intenta verificar tu conexión a Internet y el tamaño/formato de las imágenes. Si el problema persiste, contacta al soporte técnico',
+        text: 'Lo sentimos por la dificultad al cargar las fotos. Por favor, intenta statuscar tu conexión a Internet y el tamaño/formato de las imágenes. Si el problema persiste, contacta al soporte técnico',
         );
-
-
     }
    }
 
@@ -77,9 +74,22 @@ class UploadPhotoDocScreen extends StatelessWidget {
         body: Stack(
           children: [
             buildBody(context),
-            Obx(() => _sharedController.isLoading.value
-                ? buildLoadingIndicator()
-                : Container())
+             Positioned.fill(
+                child:Obx((){
+                  if (_accountController.accountState.value == AccountState.loading){
+                        return    Container(
+                  color: Colors.black26,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              );
+                  }else{
+                    return const SizedBox.shrink();
+                  }
+                }
+                ) 
+              )
+         
           ],
         )
         
@@ -106,10 +116,10 @@ const  TitleText(
 
         CustomImageSourceWidget(
             key: Key(
-                "${_accountController.user.value.img}"),
+                "${_accountController.user.value.profilePicture}"),
             imageContainerHeight: 220.0,
             onImageSourceChanged: (File image) {
-              _accountController.cedulaImg.value=image.path;   
+              _accountController.identificationprofilePicture.value=image.path;   
             }
             ),
 
@@ -123,10 +133,10 @@ const  TitleText(
 
 
         CustomImageSourceWidget(
-            key: Key("{_accountController.user.value.img}"),
+            key: Key("{_accountController.user.value.profilePicture}"),
             imageContainerHeight: 250.0,
             onImageSourceChanged: (File image) {
-            _accountController.profileImg.value=image.path;   
+            _accountController.profileprofilePicture.value=image.path;   
             }),
          Obx(
            () {
@@ -136,14 +146,20 @@ const  TitleText(
                 constraints: const BoxConstraints(maxWidth: 300.0),
                 backgroundColor: AppAssets.blackColor,
                 onPressed: (
-                         _accountController.profileImg.value == '' ||
-                         _accountController.cedulaImg.value == '' 
+                         _accountController.profileprofilePicture.value == '' ||
+                         _accountController.identificationprofilePicture.value == '' 
                      ) 
                     ? null
                     : () => upload(context)
                 );
            }
-           ),          ],
+           ),     
+
+
+           
+           
+           
+               ],
 
     )
     );

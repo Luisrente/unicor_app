@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -16,11 +17,11 @@ class CustomIndenCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height * 0.69;
+    double height = MediaQuery.of(context).size.height * 0.8;
     double padding = MediaQuery.of(context).size.width * 0.07;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 10),
       child: Container(
         margin: const EdgeInsets.only(top: 20),
         height: height,
@@ -28,7 +29,7 @@ class CustomIndenCard extends StatelessWidget {
         decoration: cardBordes(),
         child: Stack(children: [
 
-          Positioned(left: 0, child: Cargo(dato:user.facultad!)),
+          Positioned(left: 0, child: Cargo(dato:user.role!)),
 
           Positioned(
               top: 5,
@@ -39,7 +40,7 @@ class CustomIndenCard extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25)),
                   width: MediaQuery.of(context).size.width * 0.69,
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -50,38 +51,34 @@ class CustomIndenCard extends StatelessWidget {
                             alignment: Alignment.center),
                       ),
 
-
-                      Container(
-                        child: Container(
-                            width: 170,
-                            child: Column(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  CustomProductImage(url: user.img),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 2, bottom: 5),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          child: Text(
-                                            '${user.nombre1} ${user.apellido1}',
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                      SizedBox(
+                          width: 165,
+                          child: Column(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CustomProductImage(url: user.identificationPicture),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 2, bottom: 5),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        child: Text(
+                                          '${user.firstName} ${user.lastName}',
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
+                                      ),
 
-                                        
-                                        Row(
-                                          children: [
-
-                                            SizedBox(
-                                          child: const Text(
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                         const Text(
                                             'Sede:',
                                             style:  TextStyle(
                                                 fontSize: 15,
@@ -90,51 +87,65 @@ class CustomIndenCard extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                        ),
-                                            SizedBox(
-                                              child: Text('  Monteria  ',
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black),
-                                                  softWrap: true,
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          Text('${user.campus}',
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                              softWrap: true,
+                                              maxLines: 3,
+                                              overflow:
+                                                  TextOverflow.ellipsis),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                    
+                                    _CodigoQR(documento: user.identification.toString(), url: AppAssets.qrURL),
+
+                              ]
+                              )
+                              
+                              ),
+
+                          
+                                  Text(
+                                      'CC:${user.identification}',
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                   ),
 
-                                  _CodigoQR(documento: user.cedula!, url: AppAssets.qrURL),
-                      
-                                ])
-                                
-                                ),
-                      ),
- Text(
-                                      '${user.programa}',
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                           Column(
+                           children: [
+                             SizedBox(
+                               height: 60,
+                               
+                               width: MediaQuery.of(context).size.width * 0.69,
+                               child: ListView.builder(
+                                       itemCount: user.programs?.length ?? 0,
+                                       itemBuilder: (BuildContext context, int index) {
+                                         return 
+                                          Text(
+                               user.programs?[index] ?? '',
+                                 textAlign: TextAlign.center,
 
-                                  Text(
-                                      'CC:${user.cedula}',
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-
+                               style: const TextStyle(
+                                   fontSize: 20,
+                                   fontWeight: FontWeight.bold,
+                                   color: Colors.black),
+                               maxLines: 2,
+                               overflow: TextOverflow.ellipsis,
+                             );
+                                       },),
+                             ),
+                           ],
+                         ),
 
                     
                          Center(
@@ -149,6 +160,9 @@ class CustomIndenCard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.65,
               ),
             ),
+
+
+  
 
 
                           const      Text('www.unicordoba.edu.co',
@@ -192,7 +206,7 @@ class _Encabezado extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('${usuario.nombre1}',
+              Text('${usuario.firstName}',
                 style: const  TextStyle(
                     fontSize: 25,
                     color: Colors.black,
@@ -201,7 +215,7 @@ class _Encabezado extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 5),
-              Text(' CC: ${usuario.cedula!}',
+              Text(' CC: ${usuario.identification!}',
                 style: const  TextStyle(fontSize: 18, color: Colors.black),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -236,15 +250,21 @@ class _CodigoQRState extends State<_CodigoQR> {
   void initState() {
     super.initState();
     // Iniciar el temporizador al cargar el widget
-   String  encryption = EncryptionUtils.encryptString('${widget.documento}${DateTime.now()}') ;
+    String cadena = '${widget.documento}/${DateTime.now()}';
+    String dato = cadena.replaceAll(' ', '/');
+    String  encryption = EncryptionUtils.encryptString(dato);
+   log(encryption);
        setState(() {
       qr =  '${widget.url}/$encryption';
+      log(qr);
     });
 
     timer = Timer.periodic( const Duration(seconds: 20), (timer) {
         if (mounted) {
     setState(() {
-      encryption = EncryptionUtils.encryptString('${widget.documento}${DateTime.now()}');
+    String cadena = '${widget.documento}/${DateTime.now()}';
+    String dato = cadena.replaceAll(' ', '/');
+    String  encryption = EncryptionUtils.encryptString(dato);
       qr =  '${widget.url}/$encryption';
     });
    }
@@ -302,7 +322,7 @@ class Cargo extends StatelessWidget {
 
     return Container(
         // width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.69,
+        height: MediaQuery.of(context).size.height * 0.8,
         width: MediaQuery.of(context).size.width * 0.16,
         decoration: _buildBoxDecoration(),
         child: Padding(
@@ -314,7 +334,7 @@ class Cargo extends StatelessWidget {
               child: Text(
                 dato,
                 style: const TextStyle(
-                    fontSize: 30,
+                    fontSize: 38,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
                 maxLines: 1,

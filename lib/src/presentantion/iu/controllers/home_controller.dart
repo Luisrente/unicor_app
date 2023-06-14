@@ -30,7 +30,7 @@ final AuthRepositoryInterface authRepositoryInterface;
 
 
 // https://www.ateneo.edu/sites/default/files/styles/large/public/2021-11/istockphoto-517998264-612x612.jpeg?itok=aMC1MRHJ
-// https://img.freepik.com/foto-gratis/disparo-gran-angular-solo-arbol-que-crece-cielo-nublado-puesta-sol-rodeada-cesped_181624-22807.jpg?w=2000
+// https://profilePicture.freepik.com/foto-gratis/disparo-gran-angular-solo-arbol-que-crece-cielo-nublado-puesta-sol-rodeada-cesped_181624-22807.jpg?w=2000
 //  Rx<User> user= User.empty().obs;
  Rx<User> newuser= User().obs;
  RxString path = ''.obs;

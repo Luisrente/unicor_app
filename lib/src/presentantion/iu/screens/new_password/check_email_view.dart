@@ -39,7 +39,7 @@ class CheckEmailView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Revisa el correo',
+                      'Revisa el email',
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ],
@@ -53,7 +53,7 @@ class CheckEmailView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          'Hemos enviado las instrucciones de recuperación de la contraseña a su correo electrónico.',
+                          'Hemos enviado las instrucciones de recuperación de la contraseña a su email electrónico.',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center,
                         ),
@@ -93,7 +93,7 @@ class CheckEmailView extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text('¿No has recibido el correo electrónico? '),
+                const Text('¿No has recibido el email electrónico? '),
                                     const Text('Compruebe su filtro de spam'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -56,8 +56,7 @@ class ControlRepositoryImpl extends ControlRepositoryInterface {
   
   @override
   Future<User> searchUserQr(String id) async {
-
-      try {
+    try {
     final uri = Uri.parse('${AppAssets.url}/api/users/qr/${id}');
     final resp = await http.get(uri, headers: {'Content-Type': 'application/json'});
     if (resp.statusCode == 200 || resp.statusCode ==201) {
